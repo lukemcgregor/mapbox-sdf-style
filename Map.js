@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import { featureCollection, point } from '@turf/helpers';
 
+MapboxGL.setAccessToken('<Your key here>');
 MapboxGL.setTelemetryEnabled(false);
 
 const styles = StyleSheet.create({
@@ -28,7 +29,7 @@ function getRandomColor() {
     }
     return color;
   }
-const features = featureCollection([point([0,0])]);
+const features = featureCollection([point([-10,-10])]);
 
 const App = () => {
     const [rotation, setRotation] = useState(0);
@@ -36,7 +37,7 @@ const App = () => {
 
   useEffect(()=>{
     setInterval(()=>{
-      setRotation(r => (r + 1) % 360);
+      setRotation(r =>  (r + 1) % 360);
     }, 10);
     setInterval(()=>{
         setColor(getRandomColor())
