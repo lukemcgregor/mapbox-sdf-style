@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import { featureCollection, point } from '@turf/helpers';
 
-MapboxGL.setAccessToken('<Your key here>');
+MapboxGL.setAccessToken('pk.eyJ1IjoibHVrZW1jZ3JlZ29yIiwiYSI6ImNrNnU0ZjR5ZDA2NjUzZnIzcmdudjFwMm0ifQ.bZ2WT_Y04Ba8n3ROj0HWvQ');
 MapboxGL.setTelemetryEnabled(false);
 
 const styles = StyleSheet.create({
@@ -34,20 +34,22 @@ const features = featureCollection([point([-10,-10])]);
 const App = () => {
     const [rotation, setRotation] = useState(0);
     const [color, setColor] = useState('#fff');
+    const [color2, setColor2] = useState('#fff');
 
   useEffect(()=>{
     setInterval(()=>{
       setRotation(r =>  (r + 1) % 360);
     }, 10);
     setInterval(()=>{
-        setColor(getRandomColor())
+      setColor(getRandomColor())
+      setColor2(getRandomColor())
     }, 1000)
   }, []);
 
     return (
       <View style={styles.page}>
         <View style={styles.container}>
-          <MapboxGL.MapView style={styles.map} styleURL="http://localhost:3333/style.json" >
+          <MapboxGL.MapView style={styles.map} styleURL="http://10.1.7.13:3333/style.json" >
           <MapboxGL.Camera
             centerCoordinate={[0,0]}
             />
@@ -57,7 +59,9 @@ const App = () => {
                 style={{
                   iconImage: "unknown",
                   iconColor: color,
-                  iconRotate:rotation,
+                  iconRotate: rotation,
+                  iconHaloColor: color2,
+                  iconHaloWidth: 3
                 }}
               />
             </MapboxGL.ShapeSource>
